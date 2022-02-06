@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.test.annotation.Commit;
 
 import javax.persistence.Column;
@@ -113,4 +115,24 @@ public class MemoRepositoryTests {
     public void testDeleteQueryMethod(){
         memoRepository.deleteMemoByMnoLessThan(10L);
     }
+
+    @Test  // @Query 어노테이션을 이용한 쿼리문
+    public void testQueryAnnotation(){
+        List<Memo> result = memoRepository.getListDesc();
+        System.out.println(result);
+
+    }
+
+    @Test    //@Query 어노테이션+파라메터를 이용한 쿼리문
+    public void testQueryAnnotationParameter(){
+        int i = memoRepository.updateMemoText(12L,"1234kkk");
+    }
+
+//    @Test    //@Query 어노테이션+파라메터를 이용한 쿼리문2
+//    public void testQueryAnnotationParameterBean(){
+//        List<Memo> memo = (List<Memo>) memoRepository.getById(13L);
+//        System.out.println(memo);
+//        int i = memoRepository.updateMemoTextBean((Memo) memo);
+//    }
+
 }
