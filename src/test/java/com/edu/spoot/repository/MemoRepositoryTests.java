@@ -128,11 +128,10 @@ public class MemoRepositoryTests {
         int i = memoRepository.updateMemoText(12L,"1234kkk");
     }
 
-//    @Test    //@Query 어노테이션+파라메터를 이용한 쿼리문2
-//    public void testQueryAnnotationParameterBean(){
-//        List<Memo> memo = (List<Memo>) memoRepository.getById(13L);
-//        System.out.println(memo);
-//        int i = memoRepository.updateMemoTextBean((Memo) memo);
-//    }
-
+    @Test  //@Query 어노테이션+파라메터+pageable을 이용한 쿼리
+    public void testQueryAnnotationPageable(){
+        Pageable pageable = PageRequest.of(3,10,Sort.by("mno").descending());
+        Page<Memo> result = memoRepository.getListWithQuery(5L, pageable);
+        result.get().forEach(memo -> System.out.println(memo));
+    }
 }
